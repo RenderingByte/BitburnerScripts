@@ -3,7 +3,8 @@
 // BECAUSE OF THE NATURE OF THIS SCRIPT
 // IT IS STRONGLY SUGGESTED TO NOT RUN
 // ANY OTHER SCRIPTS WHILE THIS ONE IS
-// RUNNING BECAUSE THEY WILL NOT RUN.
+// RUNNING BECAUSE THOSE SCRIPTS WILL
+// NOT RUN AS INTENDED BY THE USER/DEV.
 
 /** @param {NS} ns */
 export async function main(ns) {
@@ -22,6 +23,10 @@ export async function main(ns) {
     // Script Name
     var script_name = "ByteScript.js";
 
+    // Script Caller (hostname)
+    var script_caller = ns.args[0];
+    if (ns.args.length == 0) { script_caller = null; }
+
     // Current Server Hostname
     var currenthostname = _ns("getServer").hostname;
 
@@ -30,10 +35,6 @@ export async function main(ns) {
 
     // Just Ran Script
     var first_iter = true;
-
-    // Script Caller (hostname)
-    var caller = ns.args[0];
-    if (ns.args.length == 0) { caller = null; }
 
     while (true)
     {
@@ -57,14 +58,14 @@ export async function main(ns) {
 
                     // Attempt To Get Root Access
                     if (_ns("getServerNumPortsRequired", hostname) <= can_open_ports) { await _ns("nuke", hostname); }
-                    else { _ns("tprint", "NOT ENOUGH PORTS TO NUKE " + hostname + "(" + can_open_ports + "/" + _ns("getServerNumPortsRequired", hostname) + ")"); }
+                    else { _ns("tprint", "NOT ENOUGH PORTS TO NUKE " + hostname + " (" + can_open_ports + "/" + _ns("getServerNumPortsRequired", hostname) + ")"); }
                 }
 
                 // Self Propogate.
                 if (_ns("hasRootAccess", hostname))
                 {
                     // Do not enter inf propogation loop or propogate to home.
-                    if (caller == hostname || caller == "home") { continue; }
+                    if (script_caller == hostname || hostname == "home") { continue; }
 
                     // If script already exists on that host, delete it to run the updated copy.
                     if (_ns("fileExists", script_name, hostname)) { await _ns("killall", hostname); await _ns("rm", script_name, hostname); }
