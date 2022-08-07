@@ -50,11 +50,11 @@ export async function main(ns) {
                 {
                     var can_open_ports = 0;
                     
-                    if (_ns("fileExists", "BruteSSH.exe")) { can_open_ports++; await _ns("brutessh", hostname); }
-                    if (_ns("fileExists", "FTPCrack.exe")) { can_open_ports++; await _ns("ftpcrack", hostname); }
-                    if (_ns("fileExists", "relaySMTP.exe")) { can_open_ports++; await _ns("relaysmtp", hostname); }
-                    if (_ns("fileExists", "HTTPWorm.exe")) { can_open_ports++; await _ns("httpworm", hostname); }
-                    if (_ns("fileExists", "SQLInject.exe")) { can_open_ports++; await _ns("sqlinject", hostname); }
+                    if (_ns("fileExists", "BruteSSH.exe", "home")) { can_open_ports++; await _ns("brutessh", hostname); }
+                    if (_ns("fileExists", "FTPCrack.exe", "home")) { can_open_ports++; await _ns("ftpcrack", hostname); }
+                    if (_ns("fileExists", "relaySMTP.exe", "home")) { can_open_ports++; await _ns("relaysmtp", hostname); }
+                    if (_ns("fileExists", "HTTPWorm.exe", "home")) { can_open_ports++; await _ns("httpworm", hostname); }
+                    if (_ns("fileExists", "SQLInject.exe", "home")) { can_open_ports++; await _ns("sqlinject", hostname); }
 
                     // Attempt To Get Root Access
                     if (_ns("getServerNumPortsRequired", hostname) <= can_open_ports) { await _ns("nuke", hostname); }
