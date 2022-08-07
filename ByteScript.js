@@ -80,7 +80,7 @@ export async function main(ns) {
                             break;
                         }
                     }
-                    if (max_threads == 0) { _ns("tprint", "ERROR Cannot run on " + hostname + " because max_threads = 0"); continue; }
+                    if (max_threads == 0) { _ns("tprint", "ERROR Insufficient free memory to run on " + hostname); continue; }
                     
                     // Override scripts with this updated one
                     await _ns("scp", script_name, currenthostname, hostname);
