@@ -58,7 +58,7 @@ export async function main(ns) {
 
                     // Attempt To Get Root Access
                     if (_ns("getServerNumPortsRequired", hostname) <= can_open_ports) { await _ns("nuke", hostname); }
-                    else { _ns("tprint", "NOT ENOUGH PORTS TO NUKE " + hostname + " (" + can_open_ports + "/" + _ns("getServerNumPortsRequired", hostname) + ")"); }
+                    else { _ns("tprint", "INFO NOT ENOUGH PORTS TO NUKE " + hostname + " (" + can_open_ports + "/" + _ns("getServerNumPortsRequired", hostname) + ")"); }
                 }
 
                 // Self Propogate.
@@ -80,7 +80,7 @@ export async function main(ns) {
                             break;
                         }
                     }
-                    if (max_threads == 0) { _ns("tprint", "Cannot run on " + hostname + " because max_threads = 0"); continue; }
+                    if (max_threads == 0) { _ns("tprint", "ERROR Cannot run on " + hostname + " because max_threads = 0"); continue; }
                     
                     // Override scripts with this updated one
                     await _ns("scp", script_name, currenthostname, hostname);
@@ -108,7 +108,7 @@ export async function main(ns) {
                 await _ns("hack", currenthostname);
             }
         }
-        else { _ns("tprint", "Terminating on home since home should not be self-hacked."); _ns("exit"); }
+        else { _ns("tprint", "INFO Terminating on home since home should not be self-hacked."); _ns("exit"); }
         await _ns("sleep", 25);
     }
 }
